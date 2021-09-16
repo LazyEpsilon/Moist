@@ -2,12 +2,14 @@ from counterfit_connection import CounterFitConnection
 CounterFitConnection.init('127.0.0.1', 5000)
 
 import time
+import sys
 from counterfit_shims_grove.adc import ADC
 from counterfit_shims_grove.grove_relay import GroveRelay
 import json
 from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
 
-connection_string = 'HostName=ExeUniIOTHub1.azure-devices.net;DeviceId=soil-moisture-sensor;SharedAccessKey=whBHjvE+IdyuYWsgND+NauR3KhYh7XoiZCxyxa26Gik='
+connection_string = sys.argv[1]
+print(connection_string)
 
 adc = ADC()
 relay = GroveRelay(5)
