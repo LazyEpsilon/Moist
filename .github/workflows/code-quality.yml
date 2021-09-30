@@ -3,11 +3,7 @@
 
 name: Code quality
 
-on:
-  workflow_run:
-    workflows: ["CI Build"]
-    types:
-      - completed
+on: [workflow_dispatch]
 
 jobs:
   build:
