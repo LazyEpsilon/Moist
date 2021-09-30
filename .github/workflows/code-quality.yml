@@ -5,6 +5,10 @@ name: Code quality
 
 on:
    [workflow_dispatch]
+   workflowrun:
+      workflows: ["CI Build"]
+      types:
+        - completed
 
 jobs:
   build:
