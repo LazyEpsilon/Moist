@@ -9,23 +9,12 @@ from mockito import when, mock, verify, args, arg_that
 
 import app as sdm
 
-def test_app():
-    pass
-
-def test_initialisation_of_client():
-    mock_client = mock(IoTHubDeviceClient)
+def test_initialisation_of_client_does_not_throw_with_valid_string(connectionstring):
     mock_adc = mock(ADC)
     mock_relay = mock(GroveRelay)
 
     when(CounterFitConnection).init('127.0.0.1', 5000)
 
-    when(mock_client).connect()
-    when(IoTHubDeviceClient)\
-        .create_from_connection_string("<connection string>")\
-        .thenReturn(mock_client)
-
     manager = sdm.SoilDeviceManager(mock_adc, mock_relay)
 
-    manager.initialise_client("<connection string>")
-
-    verify(mock_client).connect()
+    manager.initialise_client(connectionstring)
