@@ -1,43 +1,48 @@
-from counterfit_connection import CounterFitConnection
-CounterFitConnection.init('127.0.0.1', 5000)
-
 import time
-import sys
 from counterfit_shims_grove.adc import ADC
 from counterfit_shims_grove.grove_relay import GroveRelay
 import json
 from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
+from counterfit_connection import CounterFitConnection
 
-connection_string = sys.argv[1]
-print(connection_string)
+class SoilDeviceManager:
+    def __init__(self, adc: ADC, relay: GroveRelay):
+        self.adc = adc
+        self.relay = relay
+        self.device_client = None
 
-adc = ADC()
-relay = GroveRelay(5)
+    def initialise_client(self, connection_string: str):
+        self.device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
+        print('Connecting')
+        self.device_client.connect()
+        print('Connected')
+        self.device_client.on_method_request_received = self.handle_method_request
+        CounterFitConnection.init('127.0.0.1', 5000)
 
-device_client = IoTHubDeviceClient.create_from_connection_string(connection_string)
+    def handle_method_request(self, request):
+        print("Direct method received - ", request.name)
 
-print('Connecting')
-device_client.connect()
-print('Connected')
+        if request.name == "relay_on":
+            self.relay.on()
+        elif request.name == "relay_off":
+            self.relay.off()
 
-def handle_method_request(request):
-    print("Direct method received - ", request.name)
-    
-    if request.name == "relay_on":
-        relay.on()
-    elif request.name == "relay_off":
-        relay.off()
+        method_response = MethodResponse.create_from_method_request(request, 200)
+        self.device_client.send_method_response(method_response)
 
-    method_response = MethodResponse.create_from_method_request(request, 200)
-    device_client.send_method_response(method_response)
+    def report_reading(self):
+        soil_moisture = self.adc.read(0)
+        print("Soil moisture:", soil_moisture)
 
-device_client.on_method_request_received = handle_method_request
+        message = Message(json.dumps({'soil_moisture': soil_moisture}))
+        self.device_client.send_message(message)
 
-while True:
-    soil_moisture = adc.read(0)
-    print("Soil moisture:", soil_moisture)
-
-    message = Message(json.dumps({ 'soil_moisture': soil_moisture }))
-    device_client.send_message(message)
-
-    time.sleep(10)
+if __name__ == "__main__":
+    manager = SoilDeviceManager(ADC(), GroveRelay(5))
+    manager.initialise_client(
+        ('HostName=ECM3440JetskiHub.azure-devices.net;'
+        'DeviceId=soil-moisture-sensor;'
+        'SharedAccessKey=ijkvLn9ZOI7/aw3IyoBnQdxOD7LM5MCC9/vtgmMDF5s='))
+    while True:
+        manager.report_reading()
+        time.sleep(10)
