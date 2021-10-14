@@ -5,3 +5,4 @@ counterfit-shims-grove
 flake8
 pytest
 radon
+py7zr
