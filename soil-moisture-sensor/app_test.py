@@ -7,4 +7,4 @@ def test_answer():
     assert func(3) == 4
 
 def test_1and1():
-    assert 1+1 == 2
+    assert 1+1 == 3
