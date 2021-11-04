@@ -32,15 +32,15 @@ jobs:
       run: |
         pytest
     - name: Get tag
-      - uses: olegtarasov/get-tag@v2.1
+      uses: olegtarasov/get-tag@v2.1
         id: tagName
     - name: Run deployment
       run: |
         # run the deployment script
         python deploy/deploy.py -${{ steps.tagName.outputs.tag }}
     - name: Publish
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "release*.7z"
-          token: ${{ secrets.GITHUB_TOKEN }}
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "release*.7z"
+        token: ${{ secrets.GITHUB_TOKEN }}
 
