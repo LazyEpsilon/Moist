@@ -19,3 +19,6 @@ ci / cd pipeline
 	- manual blue green testing before release
 	- use senior manager gpg signed tag to initiate release
 	- use release candidate branches etc.
+
+Project Board:
+https://trello.com/b/arxBSkXl/project
