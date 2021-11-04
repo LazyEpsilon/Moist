@@ -5,11 +5,12 @@ name: Release
 
 on:
   push:
-    tags: ['v[0-9].[0-9]+.[0-9]+']
+    tags:
+      - v*
 
 jobs:
   build:
-    if: github.ref == 'refs/heads/release'
+    if: endsWith(github.ref, 'release') == true
     runs-on: ubuntu-latest
 
     steps:
