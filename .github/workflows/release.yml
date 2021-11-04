@@ -33,7 +33,7 @@ jobs:
         pytest
     - name: Get tag
       uses: olegtarasov/get-tag@v2.1
-        id: tagName
+      id: tagName
     - name: Run deployment
       run: |
         # run the deployment script
