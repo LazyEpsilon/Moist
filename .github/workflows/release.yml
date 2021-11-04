@@ -40,5 +40,7 @@ jobs:
         python deploy/deploy.py -${{ steps.tagName.outputs.tag }}
     - name: Publish
       - uses: ncipollo/release-action@v1
-        with: artifacts "release*.7z"
+        with:
+          artifacts: "release*.7z"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
