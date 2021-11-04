@@ -8,8 +8,8 @@ def deploy():
         topDir = os.path.dirname(wdir)
 
         z.write(f"{os.path.join(topDir, 'soil-moisture-sensor/app.py')}", "app.py")
-        z.write("iot_config.json")
-        z.write("readme.md")
+        z.write(f"{os.path.join(wdir, 'iot_config.json')}")
+        z.write(f"{os.path.join(wdir, 'readme.md')}")
 
 if __name__ == "__main__":
    deploy()
