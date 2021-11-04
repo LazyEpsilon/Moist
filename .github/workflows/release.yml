@@ -37,7 +37,7 @@ jobs:
     - name: Run deployment
       run: |
         # run the deployment script
-        python deploy/deploy.py -${{ steps.tagName.outputs.tag }}
+        python deploy/deploy.py -"${{ steps.tagName.outputs.tag }}"
     - name: Publish
       uses: ncipollo/release-action@v1
       with:
