@@ -7,7 +7,7 @@ def deploy():
         wdir = os.path.dirname(__file__)
         topDir = os.path.dirname(wdir)
 
-        z.write(f"{os.path.join(topDir, 'soil-moisture-sensor/app.py')}", "app.py")
+        z.write(f"{os.path.join(topDir, 'soil_moisture_sensor/app.py')}", "app.py")
         z.write(f"{os.path.join(wdir, 'iot_config.json')}")
         z.write(f"{os.path.join(wdir, 'readme.md')}")
 
