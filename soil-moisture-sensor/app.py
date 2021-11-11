@@ -2,6 +2,7 @@ import time
 from counterfit_shims_grove.adc import ADC
 from counterfit_shims_grove.grove_relay import GroveRelay
 import json
+import os
 from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse
 from counterfit_connection import CounterFitConnection
 
@@ -38,11 +39,12 @@ class SoilDeviceManager:
         self.device_client.send_message(message)
 
 if __name__ == "__main__":
-    manager = SoilDeviceManager(ADC(), GroveRelay(5))
-    manager.initialise_client(
-        ('HostName=ECM3440JetskiHub.azure-devices.net;'
-        'DeviceId=soil-moisture-sensor;'
-        'SharedAccessKey=ijkvLn9ZOI7/aw3IyoBnQdxOD7LM5MCC9/vtgmMDF5s='))
+
+    with open(os.path.dirname(os.path.realpath(__file__)) + '\\iot_config.json') as f: 
+        conf = json.load(f)
+        manager = SoilDeviceManager(ADC(), GroveRelay(5))
+        manager.initialise_client(conf["iot_url"])
+
     while True:
         manager.report_reading()
         time.sleep(10)
