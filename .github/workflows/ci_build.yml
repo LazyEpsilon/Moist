@@ -33,3 +33,8 @@ jobs:
     - name: Test with pytest
       run: |
         pytest tests/app_test.py
+        coverage run -m pytest soil-moisture-sensor/app_test.py
+    - name: Test Coverage Report
+      run: |
+        coverage report -m
+
