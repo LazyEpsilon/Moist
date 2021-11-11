@@ -1,10 +1,7 @@
 {
     "python.testing.pytestArgs": [
-        "soil-moisture-sensor"
+        "tests"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true,
-    "python.analysis.extraPaths": [
-        "./soil-moisture-sensor"
-    ]
+    "python.testing.pytestEnabled": true
 }
