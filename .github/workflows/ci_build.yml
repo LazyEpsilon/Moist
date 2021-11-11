@@ -32,4 +32,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest soil-moisture-sensor/app_test.py
+        pytest tests/app_test.py
+        coverage run -m pytest tests/app_test.py
+    - name: Test Coverage Report
+      run: |
+        coverage report -m
+

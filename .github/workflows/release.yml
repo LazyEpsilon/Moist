@@ -30,7 +30,10 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        coverage run -m pytest
+    - name: Test Coverage Report
+      run: |
+        coverage report -m
     - name: Get tag
       uses: olegtarasov/get-tag@v2.1
       id: tagName

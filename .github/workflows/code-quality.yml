@@ -22,9 +22,12 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run code quality report with radon
       run: |
-        radon cc -s -e "*test*" soil-moisture-sensor
-        radon mi -s -e "*test*" soil-moisture-sensor
-        radon raw -s -e "*test*" soil-moisture-sensor 
+        radon cc -s -e "*test*" soil_moisture_sensor
+        radon mi -s -e "*test*" soil_moisture_sensor
+        radon raw -s -e "*test*" soil_moisture_sensor 
     - name: Test with pytest
       run: |
-        pytest
+        coverage run -m pytest
+    - name: Test Coverage Report
+      run: |
+        coverage report -m
