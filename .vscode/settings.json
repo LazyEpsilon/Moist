@@ -1,6 +1,6 @@
 {
     "python.testing.pytestArgs": [
-        "soil-moisture-sensor"
+        "tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
