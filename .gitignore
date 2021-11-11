@@ -130,4 +130,4 @@ dmypy.json
 
 deploy/release*.7z
 .vscode/settings.json
-soil-moisture-sensor/iot_config.json
+soil_moisture_sensor/iot_config.json
