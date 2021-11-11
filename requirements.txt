@@ -7,3 +7,4 @@ mockito
 pytest
 radon
 py7zr
+coverage

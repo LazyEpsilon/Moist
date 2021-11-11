@@ -27,4 +27,7 @@ jobs:
         radon raw -s -e "*test*" soil-moisture-sensor 
     - name: Test with pytest
       run: |
-        pytest
+        coverage run -m pytest
+    - name: Test Coverage Report
+      run: |
+        coverage report -m
