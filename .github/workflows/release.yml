@@ -31,6 +31,9 @@ jobs:
     - name: Test with pytest
       run: |
         coverage run -m pytest
+    - name: Test Coverage Report
+      run: |
+        coverage report -m
     - name: Get tag
       - uses: olegtarasov/get-tag@v2.1
         id: tagName
