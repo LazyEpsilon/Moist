@@ -1,6 +1,6 @@
 import pytest
 import sys
-
+sys.path.append('/.../soil-moisture-sensor')
 from azure.iot.device import IoTHubDeviceClient, Message, MethodResponse, MethodRequest
 from counterfit_connection import CounterFitConnection
 from counterfit_shims_grove.adc import ADC
